@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.charset.Charset;
 
 /**
  * Implements the Redis Universal Protocol. Send a command, receive a command, send a reply
@@ -139,7 +140,7 @@ public class RedisProtocol {
     }
     switch (code) {
       case StatusReply.MARKER: {
-        return new StatusReply(new DataInputStream(is).readLine());
+        return new StatusReply(new DataInputStream(is).readLine(), Charset.forName("UTF-8"));
       }
       case ErrorReply.MARKER: {
         return new ErrorReply(new DataInputStream(is).readLine());
